@@ -3,24 +3,32 @@ from abc import abstractmethod
 class Band():
 
     bands = []
-    def __init__(self,name):
+    def __init__(self,name,members):
         '''
         this method take a name.
         '''
         self.name=name
+        self.members=members
         Band.bands.append(self)
         
     def __str__(self):
         '''
         this method control how the output would be.
         '''
-        return f"this is {self.name}"
+        return f" this band call {self.name}"
 
     def __repr__(self):
         '''
         this method control how the instance would be represented.
         '''
-       return f"{self.name}"
+        return f"{self.name}"
+
+    def play_solos(self):
+        result=''
+        for i in self.members:
+            result+=f"this is {i}, i am a {i.play_solo()}\n"
+        return result
+        
 
     @classmethod
     def to_list(cls):
@@ -39,7 +47,7 @@ class Musician():
         pass
 
     @abstractmethod
-    def play_solo():
+    def play_solo(cls):
         '''
         this play_solo method let every sub class have play_solo method.
         '''
@@ -57,13 +65,13 @@ class Guitarist(Musician):
         '''
         this method control how the output will looklike.
         '''
-        return f"this is {self.name}"
+        return f"{self.name}"
 
     def __repr__(self):
         '''
         this method control how to represent the instance.
         '''
-       return f"(this is {self.name})"
+        return f"{self.name}"
 
     def get_instrument():
         '''
@@ -71,11 +79,11 @@ class Guitarist(Musician):
         '''
         return "my instrument is guitar"
 
-    def play_solo():
+    def play_solo(cls):
         '''
         this method return a string of playing solo ability.
         '''
-        return "i could play solo"
+        return "guitarist"
 
     
 
@@ -91,13 +99,13 @@ class Bassist(Musician):
         '''
         this method control how the output will looklike.
         '''
-        return f"this is {self.name}"
+        return f"{self.name}"
 
     def __repr__(self):
         '''
         this method control how to represent the instance.
         '''
-       return f"(this is {self.name})"
+        return f"{self.name}"
 
     def get_instrument():
         '''
@@ -105,11 +113,11 @@ class Bassist(Musician):
         '''
         return "my instrument is bass"
 
-    def play_solo():
+    def play_solo(cls):
         '''
         this method return a string of playing solo ability.
         '''
-        return "i couldn't play solo"
+        return "bassist"
 
     
 
@@ -125,13 +133,13 @@ class Drummer(Musician):
         '''
         this method control how the output will looklike.
         '''
-        return f"this is {self.name}"
+        return f"{self.name}"
 
     def __repr__(self):
         '''
         this method control how to represent the instance.
         '''
-       return f"(this is {self.name})"
+        return f"{self.name}"
 
     def get_instrument(cli):
         '''
@@ -143,14 +151,15 @@ class Drummer(Musician):
         '''
         this method return a string of playing solo ability.
         '''
-        return "i could play solo"
+        return "drummer"
 
 
 
 if __name__ == "__main__":
     jhon=Drummer('jhon')
-    print(jhon.play_solo())
-    metal=Band('metal')
-    rab=Band('rab')
-    rock=Band('rock')
-    print(rab.to_list())
+    salma=Guitarist('salma')
+    leo=Bassist('leo')
+    
+    metal=Band('metal',[jhon,salma,leo])
+
+    print(metal.play_solos())
